@@ -35,6 +35,7 @@ export function createVariantAnnotationsByMutationFetcher(
     };
 }
 
+// ahah
 export function buildNamespaceColumnConfig(
     mutations: Mutation[]
 ): NamespaceColumnConfig {
