@@ -1063,19 +1063,6 @@ export default abstract class ComparisonStore
         []
     );
 
-    protected _query: QueryParamsType;
-    public get query(): Readonly<QueryParamsType> {
-        // use typescript to make it readonly
-
-        // NOTE: `query` always contains every URL property (including nested properties) declared, even
-        //  if it's not present in the URL. If it's not present in the URL, that property will have
-        //  value undefined in the `query` object.
-
-        // `query` ONLY reflects properties that are passed through in `propertiesMap` in the constructor.
-
-        return this._query;
-    }
-
     readonly sample = remoteData(
         {
             await: () => [this.studyToDataQueryFilter],
@@ -4268,7 +4255,9 @@ export default abstract class ComparisonStore
         invoke: () => {
             // if there are multiple studies or if there are no selected molecular profiles in query
             // derive default profiles based on profileFilter (refers to old data priority)
-            if (
+            if (typeof this.studies.result === 'undefined')
+                throw new Error('Failed to get studies');
+            else if (
                 this.studies.result.length > 1 ||
                 this.selectedMolecularProfileIds.length === 0
             ) {
