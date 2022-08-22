@@ -430,10 +430,10 @@ export default abstract class ComparisonStore
 
     @computed get hugoGeneSymbols() {
         if (
-            this.urlWrapper.query.gene_list &&
-            this.urlWrapper.query.gene_list.length > 0
+            this.urlWrapper1.query.gene_list &&
+            this.urlWrapper1.query.gene_list.length > 0
         ) {
-            return uniqueGenesInOQLQuery(this.urlWrapper.query.gene_list);
+            return uniqueGenesInOQLQuery(this.urlWrapper1.query.gene_list);
         } else {
             return [];
         }
@@ -472,7 +472,7 @@ export default abstract class ComparisonStore
     }
 
     @computed get queryContainsMutationOql() {
-        return doesQueryContainMutationOQL(this.urlWrapper.query.gene_list);
+        return doesQueryContainMutationOQL(this.urlWrapper1.query.gene_list);
     }
 
     @computed get referenceGenomeBuild() {
@@ -555,7 +555,7 @@ export default abstract class ComparisonStore
 
     @computed
     get cancerStudyIds() {
-        return this.urlWrapper.query.cancer_study_list.split(',');
+        return this.urlWrapper1.query.cancer_study_list.split(',');
     }
 
     @computed get customDataFilterAppliers() {
@@ -675,7 +675,7 @@ export default abstract class ComparisonStore
 
     @computed
     public get hideUnprofiledSamples() {
-        const value = this.urlWrapper.query.hide_unprofiled_samples;
+        const value = this.urlWrapper1.query.hide_unprofiled_samples;
         if (value === 'any' || value === 'totally') {
             return value;
         } else {
@@ -1023,7 +1023,7 @@ export default abstract class ComparisonStore
             this.clinicalAttributeIdToAvailableFrequency,
             this.genomeNexusClient,
             this.genomeNexusInternalClient,
-            () => this.urlWrapper.query.mutations_transcript_id
+            () => this.urlWrapper1.query.mutations_transcript_id
         );
         this.mutationMapperStoreByGeneWithDriverKey[
             this.getGeneWithDriverKey(gene)
@@ -3578,7 +3578,7 @@ export default abstract class ComparisonStore
     });
 
     @computed get oqlText() {
-        return this.urlWrapper.query.gene_list;
+        return this.urlWrapper1.query.gene_list;
     }
 
     readonly entrezGeneIdToGene = remoteData<{ [entrezGeneId: number]: Gene }>({
@@ -3909,14 +3909,14 @@ export default abstract class ComparisonStore
 
     @computed
     get rppaScoreThreshold() {
-        return this.urlWrapper.query.RPPA_SCORE_THRESHOLD
-            ? parseFloat(this.urlWrapper.query.RPPA_SCORE_THRESHOLD)
+        return this.urlWrapper1.query.RPPA_SCORE_THRESHOLD
+            ? parseFloat(this.urlWrapper1.query.RPPA_SCORE_THRESHOLD)
             : DEFAULT_RPPA_THRESHOLD;
     }
 
     @computed get zScoreThreshold() {
-        return this.urlWrapper.query.Z_SCORE_THRESHOLD
-            ? parseFloat(this.urlWrapper.query.Z_SCORE_THRESHOLD)
+        return this.urlWrapper1.query.Z_SCORE_THRESHOLD
+            ? parseFloat(this.urlWrapper1.query.Z_SCORE_THRESHOLD)
             : DEFAULT_Z_SCORE_THRESHOLD;
     }
 
@@ -3926,14 +3926,14 @@ export default abstract class ComparisonStore
 
     @computed get sampleListCategory(): SampleListCategoryType | undefined {
         if (
-            this.urlWrapper.query.case_set_id &&
+            this.urlWrapper1.query.case_set_id &&
             [
                 SampleListCategoryType.w_mut,
                 SampleListCategoryType.w_cna,
                 SampleListCategoryType.w_mut_cna,
-            ].includes(this.urlWrapper.query.case_set_id as any)
+            ].includes(this.urlWrapper1.query.case_set_id as any)
         ) {
-            return this.urlWrapper.query.case_set_id as SampleListCategoryType;
+            return this.urlWrapper1.query.case_set_id as SampleListCategoryType;
         } else {
             return undefined;
         }
@@ -3941,9 +3941,9 @@ export default abstract class ComparisonStore
 
     @computed get samplesSpecificationParams() {
         return parseSamplesSpecifications(
-            this.urlWrapper.query.case_ids,
-            this.urlWrapper.query.sample_list_ids,
-            this.urlWrapper.query.case_set_id,
+            this.urlWrapper1.query.case_ids,
+            this.urlWrapper1.query.sample_list_ids,
+            this.urlWrapper1.query.case_set_id,
             this.cancerStudyIds
         );
     }
@@ -4249,14 +4249,14 @@ export default abstract class ComparisonStore
     @computed
     get selectedMolecularProfileIds() {
         //use profileFilter when both profileFilter and MolecularProfileIds are present in query
-        if (isNaN(parseInt(this.urlWrapper.query.profileFilter, 10))) {
+        if (isNaN(parseInt(this.urlWrapper1.query.profileFilter, 10))) {
             return [];
         }
-        return getMolecularProfiles(this.urlWrapper.query);
+        return getMolecularProfiles(this.urlWrapper1.query);
     }
 
     @computed get profileFilter() {
-        return this.urlWrapper.query.profileFilter || '0';
+        return this.urlWrapper1.query.profileFilter || '0';
     }
 
     readonly selectedMolecularProfiles = remoteData<MolecularProfile[]>({
