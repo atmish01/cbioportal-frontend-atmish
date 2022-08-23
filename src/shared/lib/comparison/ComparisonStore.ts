@@ -56,6 +56,7 @@ import {
     StructuralVariant,
     StructuralVariantFilter,
 } from 'cbioportal-ts-api-client';
+import GroupComparisonMutationMapperStore from '../../../pages/groupComparison/GroupComparisonMutationMapperStore';
 import {
     action,
     autorun,
@@ -815,14 +816,15 @@ export default abstract class ComparisonStore
             ? (m: AnnotatedMutation) => m.putativeDriver
             : undefined;
     }
+    //use groupcompMutationMapperStore
 
     public getMutationMapperStore(
         gene: Gene
-    ): ResultsViewMutationMapperStore | undefined {
+    ): GroupComparisonMutationMapperStore | undefined {
         if (
             this.genes.isComplete &&
             this.oncoKbCancerGenes.isComplete &&
-            this.uniqueSampleKeyToTumorType.isComplete &&
+            this.uniqueSampleKeyToTumorType.isComplete && //check
             this.mutations.isComplete &&
             this.mutationsByGene.isComplete
         ) {
@@ -991,7 +993,7 @@ export default abstract class ComparisonStore
     });
 
     public createMutationMapperStoreForSelectedGene(gene: Gene) {
-        const store = new ResultsViewMutationMapperStore(
+        const store = new GroupComparisonMutationMapperStore(
             getServerConfig(),
             {
                 filterMutationsBySelectedTranscript: true,
