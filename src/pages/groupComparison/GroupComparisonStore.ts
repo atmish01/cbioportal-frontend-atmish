@@ -351,7 +351,7 @@ export default class GroupComparisonStore extends ComparisonStore {
     });
 
     // virtual studies in session
-    private readonly queriedVirtualStudies = remoteData({
+    public readonly queriedVirtualStudies = remoteData({
         await: () => [this.queriedPhysicalStudies, this._session],
         invoke: async () => {
             const originStudies = this._session.result!.origin;

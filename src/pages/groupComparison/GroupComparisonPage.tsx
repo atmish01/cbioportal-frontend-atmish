@@ -184,8 +184,8 @@ export default class GroupComparisonPage extends React.Component<
                     >
                         <Mutation
                             store={this.store}
-                            //appStore={this.appStore}
-                            //urlWrapper={this.urlWrapper}
+                            appStore={this.props.appStore}
+                            urlWrapper={this.urlWrapper}
                         />
                     </MSKTab>
                     {this.store.showAlterationsTab && (
