@@ -50,8 +50,8 @@ import CategoricalNamespaceColumnFormatter from 'shared/components/mutationTable
 
 export default class ResultsViewMutationMapperStore extends MutationMapperStore {
     constructor(
-        protected mutationMapperConfig: IServerConfig,
-        protected mutationMapperStoreConfig: IMutationMapperStoreConfig,
+        public mutationMapperConfig: IServerConfig,
+        public mutationMapperStoreConfig: IMutationMapperStoreConfig,
         public gene: Gene,
         public samples: MobxPromise<SampleIdentifier[]>,
         public oncoKbCancerGenes: MobxPromise<CancerGene[] | Error>,
@@ -63,7 +63,7 @@ export default class ResultsViewMutationMapperStore extends MutationMapperStore 
         // (which will be done in the getter thats passed in here) so that the cache itself is observable
         // and we will react when it changes to a new object.
         getMutations: () => Mutation[],
-        private getMutationCountCache: () => MutationCountCache,
+        public getMutationCountCache: () => MutationCountCache,
         private getClinicalAttributeCache: () => ClinicalAttributeCache,
         private getGenomeNexusCache: () => GenomeNexusCache,
         private getGenomeNexusMutationAssessorCache: () => GenomeNexusMutationAssessorCache,

@@ -50,8 +50,8 @@ import CategoricalNamespaceColumnFormatter from 'shared/components/mutationTable
 
 export default class GroupComparisonMutationMapperStore extends MutationMapperStore {
     constructor(
-        protected mutationMapperConfig: IServerConfig,
-        protected mutationMapperStoreConfig: IMutationMapperStoreConfig,
+        public mutationMapperConfig: IServerConfig,
+        public mutationMapperStoreConfig: IMutationMapperStoreConfig,
         public gene: Gene,
         public samples: MobxPromise<SampleIdentifier[]>,
         public oncoKbCancerGenes: MobxPromise<CancerGene[] | Error>,

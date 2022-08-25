@@ -20,9 +20,9 @@ import _ from 'lodash';
 import LoadingIndicator from 'shared/components/loadingIndicator/LoadingIndicator';
 import { updateOncoKbIconStyle } from 'shared/lib/AnnotationColumnUtils';
 import ComparisonStore from '../../shared/lib/comparison/ComparisonStore';
-import CaseFilterWarning from '../../shared/components/banners/CaseFilterWarning';
-import AlterationFilterWarning from '../../shared/components/banners/AlterationFilterWarning';
-import OqlStatusBanner from '../../shared/components/banners/OqlStatusBanner';
+//import CaseFilterWarning from '../../shared/components/banners/CaseFilterWarning';
+//import AlterationFilterWarning from '../../shared/components/banners/AlterationFilterWarning';
+//import OqlStatusBanner from '../../shared/components/banners/OqlStatusBanner';
 
 export interface IMutationsPageProps {
     routing?: any;

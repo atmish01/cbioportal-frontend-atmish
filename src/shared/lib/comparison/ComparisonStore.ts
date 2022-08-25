@@ -800,7 +800,7 @@ export default abstract class ComparisonStore
     public mutationsTabFilteringSettings = this.makeMutationsTabFilteringSettings();
 
     private mutationMapperStoreByGeneWithDriverKey: {
-        [hugoGeneSymbolWithDriver: string]: ResultsViewMutationMapperStore;
+        [hugoGeneSymbolWithDriver: string]: GroupComparisonMutationMapperStore;
     } = {};
 
     // Need to add "DRIVER" into key because mutation mapper store is cached
@@ -816,7 +816,6 @@ export default abstract class ComparisonStore
             ? (m: AnnotatedMutation) => m.putativeDriver
             : undefined;
     }
-    //use groupcompMutationMapperStore
 
     public getMutationMapperStore(
         gene: Gene
@@ -824,7 +823,6 @@ export default abstract class ComparisonStore
         if (
             this.genes.isComplete &&
             this.oncoKbCancerGenes.isComplete &&
-            this.uniqueSampleKeyToTumorType.isComplete && //check
             this.mutations.isComplete &&
             this.mutationsByGene.isComplete
         ) {
