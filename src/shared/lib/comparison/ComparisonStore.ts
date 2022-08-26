@@ -198,6 +198,7 @@ import {
     VirtualStudy,
 } from 'shared/api/session-service/sessionServiceModels';
 import { Gene, Mutation } from 'cbioportal-ts-api-client';
+import { Group as Group1 } from 'shared/api/session-service/sessionServiceModels';
 import {
     ANNOTATED_PROTEIN_IMPACT_FILTER_TYPE,
     createAnnotatedProteinImpactTypeFilter,
@@ -1390,7 +1391,7 @@ export default abstract class ComparisonStore
 
                     filteredStructuralVariants.forEach(structuralVariant => {
                         const mutation = {
-                            center: structuralVariant.center,
+                            center: 'N/A',
                             chr: structuralVariant.site1Chromosome,
                             entrezGeneId: structuralVariant.site1EntrezGeneId,
                             keyword: structuralVariant.comments,
@@ -4095,6 +4096,8 @@ export default abstract class ComparisonStore
                         toSampleUuid(data.studyId, data.sampleId)
                     ] = true;
                 }
+                if (typeof this.samples.result === 'undefined')
+                    throw new Error('Failed to get studies');
                 return Promise.resolve(
                     this.samples.result.filter(sample => {
                         return !sampleHasData[
@@ -4150,8 +4153,12 @@ export default abstract class ComparisonStore
     readonly clinicalDataForSamples = remoteData<ClinicalData[]>(
         {
             await: () => [this.studies, this.samples],
-            invoke: () =>
-                this.getClinicalData(
+            invoke: () => {
+                if (typeof this.studies.result === 'undefined')
+                    throw new Error('Failed to get studies');
+                if (typeof this.samples.result === 'undefined')
+                    throw new Error('Failed to get studies');
+                return this.getClinicalData(
                     REQUEST_ARG_ENUM.CLINICAL_DATA_TYPE_SAMPLE,
                     this.studies.result!,
                     this.samples.result,
@@ -4159,7 +4166,8 @@ export default abstract class ComparisonStore
                         CLINICAL_ATTRIBUTE_ID_ENUM.CANCER_TYPE,
                         CLINICAL_ATTRIBUTE_ID_ENUM.CANCER_TYPE_DETAILED,
                     ]
-                ),
+                );
+            },
         },
         []
     );
@@ -4338,7 +4346,7 @@ export default abstract class ComparisonStore
     });
 
     readonly clinicalAttributes_comparisonGroupMembership = remoteData<
-        (ClinicalAttribute & { comparisonGroup: Group })[]
+        (ClinicalAttribute & { comparisonGroup: Group1 })[]
     >({
         await: () => [this.savedComparisonGroupsForStudies],
         invoke: () =>
