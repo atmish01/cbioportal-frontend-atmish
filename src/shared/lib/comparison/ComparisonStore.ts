@@ -4357,10 +4357,10 @@ export default abstract class ComparisonStore
             ),
     });
 
-    readonly savedComparisonGroupsForStudies = remoteData<Group[]>({
+    readonly savedComparisonGroupsForStudies = remoteData<Group1[]>({
         await: () => [this.queriedStudies],
         invoke: async () => {
-            let ret: Group[] = [];
+            let ret: Group1[] = [];
             if (this.appStore.isLoggedIn) {
                 try {
                     ret = ret.concat(
@@ -4372,7 +4372,7 @@ export default abstract class ComparisonStore
                     // fail silently
                 }
             }
-            // add any groups that are referenced in URL
+            /* add any groups that are referenced in URL
             for (const id of this.comparisonGroupsReferencedInURL) {
                 try {
                     ret.push(await comparisonClient.getGroup(id));
@@ -4380,12 +4380,13 @@ export default abstract class ComparisonStore
                     // ignore any errors with group ids that don't exist
                 }
             }
+            */
             return ret;
         },
     });
 
     public urlWrapper1: ResultsViewURLWrapper;
-
+    /*
     @computed.struct get comparisonGroupsReferencedInURL() {
         // The oncoprint can have tracks which indicate comparison group membership per sample.
         //  We want to know which comparison groups are referenced in these tracks, if any
@@ -4407,7 +4408,7 @@ export default abstract class ComparisonStore
             ); // convert track ids to group ids
         return groupIds;
     }
-
+    */
     readonly clinicalAttributes_customCharts = remoteData({
         await: () => [this.sampleMap],
         invoke: async () => {
