@@ -362,10 +362,10 @@ export default abstract class ComparisonStore
     @observable includeUnknownStatusMutations = true;
 
     constructor(
-        public selectedEnrichmentEventTypes: EnrichmentEventType[] | undefined,
         protected appStore: AppStore,
         protected urlWrapper: IComparisonURLWrapper,
-        protected resultsViewStore?: ResultsViewPageStore
+        protected resultsViewStore?: ResultsViewPageStore,
+        public selectedEnrichmentEventTypes?: EnrichmentEventType[] | undefined
     ) {
         makeObservable(this);
 

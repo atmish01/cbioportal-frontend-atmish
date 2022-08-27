@@ -35,7 +35,7 @@ import MutationMapperDataStore, {
     MUTATION_STATUS_FILTER_ID,
 } from 'shared/components/mutationMapper/MutationMapperDataStore';
 
-import MutationRateSummary from 'pages/groupComparison/GroupComparisonMutationMapperStore';
+import MutationRateSummary from 'pages/resultsView/mutation/MutationRateSummary';
 import GroupComparisonMutationMapperStore from 'pages/groupComparison/GroupComparisonMutationMapperStore';
 import ResultsViewMutationTable from 'pages/resultsView/mutation/ResultsViewMutationTable';
 import {
@@ -165,6 +165,20 @@ export default class GroupComparisonMutationMapper extends MutationMapper<
                 this.props.store.clinicalDataGroupedBySampleMap,
                 this.props.store.mutationsTabClinicalAttributes
             ) === 'pending'
+        );
+    }
+
+    @action.bound
+    protected onMutationStatusSelect(
+        selectedMutationStatusIds: string[],
+        allValuesSelected: boolean
+    ) {
+        onFilterOptionSelect(
+            selectedMutationStatusIds,
+            allValuesSelected,
+            this.store.dataStore,
+            DataFilterType.MUTATION_STATUS,
+            MUTATION_STATUS_FILTER_ID
         );
     }
 
