@@ -10,7 +10,7 @@ import { getServerConfig } from 'config/config';
 import autobind from 'autobind-decorator';
 import { AppStore } from '../../AppStore';
 import GroupComparisonURLWrapper from './GroupComparisonURLWrapper';
-import './mutations.scss';
+//import 'src/pages/resultsView/mutation/mutations.scss';
 import {
     getMutationAlignerUrlTemplate,
     getOncoKbApiUrl,

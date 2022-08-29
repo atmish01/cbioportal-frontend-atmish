@@ -45,6 +45,8 @@ export default class GroupComparisonURLWrapper
                 overlapStrategy: { isSessionProp: false },
                 patientEnrichments: { isSessionProp: false },
                 selectedEnrichmentEventTypes: { isSessionProp: true },
+                mutations_gene: { isSessionProp: false },
+                mutations_transcript_id: { isSessionProp: false },
             },
             true,
             getServerConfig().session_url_length_threshold
