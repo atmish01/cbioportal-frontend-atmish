@@ -2,7 +2,7 @@ import * as React from 'react';
 import { observer } from 'mobx-react';
 import { MSKTabs, MSKTab } from 'shared/components/MSKTabs/MSKTabs';
 import { AnnotatedMutation } from '../resultsView/ResultsViewPageStore';
-import GroupComparisonMutationMapper from './GroupComparisonMutationMapper';
+import ComparisonStore from '../../shared/lib/comparison/ComparisonStore';
 import { convertToMutationMapperProps } from 'shared/components/mutationMapper/MutationMapperConfig';
 import MutationMapperUserSelectionStore from 'shared/components/mutationMapper/MutationMapperUserSelectionStore';
 import { computed, action, makeObservable } from 'mobx';
@@ -16,10 +16,11 @@ import {
     getOncoKbApiUrl,
 } from 'shared/api/urls';
 import { Mutation } from 'cbioportal-ts-api-client';
+import ResultsViewMutationMapper from 'pages/resultsView/mutation/ResultsViewMutationMapper';
 import _ from 'lodash';
 import LoadingIndicator from 'shared/components/loadingIndicator/LoadingIndicator';
 import { updateOncoKbIconStyle } from 'shared/lib/AnnotationColumnUtils';
-import ComparisonStore from '../../shared/lib/comparison/ComparisonStore';
+import GroupComparisonMutationMapper from './GroupComparisonMutationMapper';
 //import CaseFilterWarning from '../../shared/components/banners/CaseFilterWarning';
 //import AlterationFilterWarning from '../../shared/components/banners/AlterationFilterWarning';
 //import OqlStatusBanner from '../../shared/components/banners/OqlStatusBanner';
@@ -171,7 +172,7 @@ export default class Mutations extends React.Component<
             )!;
             return (
                 <div>
-                    <GroupComparisonMutationMapper
+                    <ResultsViewMutationMapper
                         {...convertToMutationMapperProps({
                             ...getServerConfig(),
                             // override ensemblLink

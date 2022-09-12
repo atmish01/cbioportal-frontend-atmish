@@ -63,7 +63,7 @@ export default class GroupComparisonMutationMapperStore extends MutationMapperSt
         // (which will be done in the getter thats passed in here) so that the cache itself is observable
         // and we will react when it changes to a new object.
         getMutations: () => Mutation[],
-        private getMutationCountCache: () => MutationCountCache,
+        public getMutationCountCache: () => MutationCountCache,
         private getClinicalAttributeCache: () => ClinicalAttributeCache,
         private getGenomeNexusCache: () => GenomeNexusCache,
         private getGenomeNexusMutationAssessorCache: () => GenomeNexusMutationAssessorCache,

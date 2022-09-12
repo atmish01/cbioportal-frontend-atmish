@@ -56,7 +56,7 @@ import {
     StructuralVariant,
     StructuralVariantFilter,
 } from 'cbioportal-ts-api-client';
-import GroupComparisonMutationMapperStore from '../../../pages/groupComparison/GroupComparisonMutationMapperStore';
+//import GroupComparisonMutationMapperStore from '../../../pages/groupComparison/GroupComparisonMutationMapperStore';
 import {
     action,
     autorun,
@@ -137,25 +137,20 @@ import { ISurvivalDescription } from 'pages/resultsView/survival/SurvivalDescrip
 import {
     fetchSurvivalDataExists,
     cancerTypeForOncoKb,
-    evaluateDiscreteCNAPutativeDriverInfo,
     evaluateMutationPutativeDriverInfo,
     fetchAllReferenceGenomeGenes,
-    fetchCnaOncoKbDataForOncoprint,
-    fetchCopyNumberSegmentsForSamples,
     fetchGermlineConsentedSamples,
     fetchOncoKbCancerGenes,
     fetchOncoKbDataForOncoprint,
     fetchStructuralVariantOncoKbData,
     fetchStudiesForSamplesWithoutCancerTypeClinicalData,
     fetchVariantAnnotationsIndexedByGenomicLocation,
-    filterAndAnnotateMolecularData,
     filterAndAnnotateMutations,
     generateDataQueryFilter,
     generateUniqueSampleKeyToTumorTypeMap,
     getAllGenes,
     getSurvivalClinicalAttributesPrefix,
     groupBySampleId,
-    makeGetOncoKbCnaAnnotationForOncoprint,
     makeGetOncoKbMutationAnnotationForOncoprint,
     makeIsHotspotForOncoprint,
     getOncoKbOncogenic,
@@ -260,13 +255,13 @@ export interface AnnotatedMutation extends Mutation {
     isHotspot: boolean;
     simplifiedMutationType: SimplifiedMutationType;
 }
-import {
+/*import {
     MutationTableColumnType,
     getTextForDataField,
-} from 'shared/components/mutationTable/MutationTable';
-import { getClonalValue } from 'shared/components/mutationTable/column/clonal/ClonalColumnFormatter';
-import { getCancerCellFractionValue } from 'shared/components/mutationTable/column/cancerCellFraction/CancerCellFractionColumnFormatter';
-import { getExpectedAltCopiesValue } from 'shared/components/mutationTable/column/expectedAltCopies/ExpectedAltCopiesColumnFormatter';
+} from 'shared/components/mutationTable/MutationTable';*/
+import getClonalValue from 'shared/components/mutationTable/column/clonal/ClonalColumnFormatter';
+import getCancerCellFractionValue from 'shared/components/mutationTable/column/cancerCellFraction/CancerCellFractionColumnFormatter';
+import getExpectedAltCopiesValue from 'shared/components/mutationTable/column/expectedAltCopies/ExpectedAltCopiesColumnFormatter';
 import TumorAlleleFreqColumnFormatter from 'shared/components/mutationTable/column/TumorAlleleFreqColumnFormatter';
 import NormalAlleleFreqColumnFormatter from 'shared/components/mutationTable/column/NormalAlleleFreqColumnFormatter';
 import ChromosomeColumnFormatter from 'shared/components/mutationTable/column/ChromosomeColumnFormatter';
@@ -565,7 +560,7 @@ export default abstract class ComparisonStore
             [ANNOTATED_PROTEIN_IMPACT_FILTER_TYPE]: createAnnotatedProteinImpactTypeFilter(
                 this.isPutativeDriver
             ),
-            [MutationTableColumnType.CLONAL]: createNumericalFilter(
+            /*[MutationTableColumnType.CLONAL]: createNumericalFilter(
                 (d: Mutation) => {
                     const val = getClonalValue(d);
                     return val ? +val : null;
@@ -662,7 +657,7 @@ export default abstract class ComparisonStore
                         [d],
                         this.indexedVariantAnnotations
                     )
-            ),
+            ),*/
         };
     }
 
@@ -801,7 +796,7 @@ export default abstract class ComparisonStore
     public mutationsTabFilteringSettings = this.makeMutationsTabFilteringSettings();
 
     private mutationMapperStoreByGeneWithDriverKey: {
-        [hugoGeneSymbolWithDriver: string]: GroupComparisonMutationMapperStore;
+        [hugoGeneSymbolWithDriver: string]: ResultsViewMutationMapperStore;
     } = {};
 
     // Need to add "DRIVER" into key because mutation mapper store is cached
@@ -820,7 +815,7 @@ export default abstract class ComparisonStore
 
     public getMutationMapperStore(
         gene: Gene
-    ): GroupComparisonMutationMapperStore | undefined {
+    ): ResultsViewMutationMapperStore | undefined {
         if (
             this.genes.isComplete &&
             this.oncoKbCancerGenes.isComplete &&
@@ -992,7 +987,7 @@ export default abstract class ComparisonStore
     });
 
     public createMutationMapperStoreForSelectedGene(gene: Gene) {
-        const store = new GroupComparisonMutationMapperStore(
+        const store = new ResultsViewMutationMapperStore(
             getServerConfig(),
             {
                 filterMutationsBySelectedTranscript: true,
