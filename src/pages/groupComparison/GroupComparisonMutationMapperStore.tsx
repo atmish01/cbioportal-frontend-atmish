@@ -35,18 +35,18 @@ import {
 import { MutationTableColumnType } from 'shared/components/mutationTable/MutationTable';
 import GnomadColumnFormatter from 'shared/components/mutationTable/column/GnomadColumnFormatter';
 import DbsnpColumnFormatter from 'shared/components/mutationTable/column/DbsnpColumnFormatter';
-import CosmicColumnFormatter from 'shared/components/mutationTable/column/CosmicColumnFormatter';
-import MutationCountColumnFormatter from 'shared/components/mutationTable/column/MutationCountColumnFormatter';
-import ExonColumnFormatter from 'shared/components/mutationTable/column/ExonColumnFormatter';
-import StudyColumnFormatter from 'shared/components/mutationTable/column/StudyColumnFormatter';
-import DiscreteCNAColumnFormatter from 'shared/components/mutationTable/column/DiscreteCNAColumnFormatter';
-import CancerTypeColumnFormatter from 'shared/components/mutationTable/column/CancerTypeColumnFormatter';
-import HgvscColumnFormatter from 'shared/components/mutationTable/column/HgvscColumnFormatter';
-import ClinicalAttributeColumnFormatter from 'shared/components/mutationTable/column/ClinicalAttributeColumnFormatter';
+// import CosmicColumnFormatter from 'shared/components/mutationTable/column/CosmicColumnFormatter';
+// import MutationCountColumnFormatter from 'shared/components/mutationTable/column/MutationCountColumnFormatter';
+// import ExonColumnFormatter from 'shared/components/mutationTable/column/ExonColumnFormatter';
+// import StudyColumnFormatter from 'shared/components/mutationTable/column/StudyColumnFormatter';
+// import DiscreteCNAColumnFormatter from 'shared/components/mutationTable/column/DiscreteCNAColumnFormatter';
+// import CancerTypeColumnFormatter from 'shared/components/mutationTable/column/CancerTypeColumnFormatter';
+// import HgvscColumnFormatter from 'shared/components/mutationTable/column/HgvscColumnFormatter';
+// import ClinicalAttributeColumnFormatter from 'shared/components/mutationTable/column/ClinicalAttributeColumnFormatter';
 import _ from 'lodash';
-import { createNamespaceColumnName } from 'shared/components/mutationMapper/MutationMapperUtils';
-import NumericNamespaceColumnFormatter from 'shared/components/mutationTable/column/NumericNamespaceColumnFormatter';
-import CategoricalNamespaceColumnFormatter from 'shared/components/mutationTable/column/CategoricalNamespaceColumnFormatter';
+// import { createNamespaceColumnName } from 'shared/components/mutationMapper/MutationMapperUtils';
+// import NumericNamespaceColumnFormatter from 'shared/components/mutationTable/column/NumericNamespaceColumnFormatter';
+// import CategoricalNamespaceColumnFormatter from 'shared/components/mutationTable/column/CategoricalNamespaceColumnFormatter';
 
 export default class GroupComparisonMutationMapperStore extends MutationMapperStore {
     constructor(

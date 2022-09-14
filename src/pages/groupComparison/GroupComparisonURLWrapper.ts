@@ -24,12 +24,30 @@ export type GroupComparisonURLQuery = {
     patientEnrichments?: string;
     selectedEnrichmentEventTypes: string;
     mutations_gene?: string;
-    mutations_transcript_id?: string;
+    mutations_transcript_id: string;
+    gene_list: string;
+    cancer_study_list: string;
+    hide_unprofiled_samples?: string;
+    case_ids: string;
+    profileFilter: string;
+    RPPA_SCORE_THRESHOLD?: string;
+    Z_SCORE_THRESHOLD?: string;
+    case_set_id: string;
+    sample_list_ids?: string;
 };
 
 export enum GroupComparisonURLQueryEnum {
     mutations_gene = 'mutations_gene',
     mutations_transcript_id = 'mutations_transcript_id',
+    gene_list = 'gene_list',
+    case_set_id = 'case_set_id',
+    RPPA_SCORE_THRESHOLD = 'RPPA_SCORE_THRESHOLD',
+    Z_SCORE_THRESHOLD = 'Z_SCORE_THRESHOLD',
+    cancer_study_list = 'cancer_study_list',
+    hide_unprofiled_samples = 'hide_unprofiled_samples',
+    case_ids = 'case_ids',
+    profileFilter = 'profileFilter',
+    sample_list_ids = 'sample_list_ids',
 }
 
 export default class GroupComparisonURLWrapper
@@ -47,6 +65,15 @@ export default class GroupComparisonURLWrapper
                 selectedEnrichmentEventTypes: { isSessionProp: true },
                 mutations_gene: { isSessionProp: false },
                 mutations_transcript_id: { isSessionProp: false },
+                gene_list: { isSessionProp: true },
+                cancer_study_list: { isSessionProp: true },
+                hide_unprofiled_samples: { isSessionProp: true },
+                case_ids: { isSessionProp: true },
+                profileFilter: { isSessionProp: true },
+                RPPA_SCORE_THRESHOLD: { isSessionProp: true },
+                Z_SCORE_THRESHOLD: { isSessionProp: true },
+                case_set_id: { isSessionProp: true },
+                sample_list_ids: { isSessionProp: true },
             },
             true,
             getServerConfig().session_url_length_threshold

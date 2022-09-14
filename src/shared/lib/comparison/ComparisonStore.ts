@@ -11,7 +11,7 @@ import {
     isGroupEmpty,
     partitionCasesByGroupMembership,
 } from '../../../pages/groupComparison/GroupComparisonUtils';
-//import URLWrapper from '../../../shared/lib/URLWrapper';
+import URLWrapper from '../../../shared/lib/URLWrapper';
 import {
     countMutations,
     mutationCountByPositionKey,
@@ -105,7 +105,7 @@ import { ChartTypeEnum } from 'pages/studyView/StudyViewConfig';
 import {
     parseSamplesSpecifications,
     populateSampleSpecificationsFromVirtualStudies,
-    ResultsViewTab,
+    //ResultsViewTab,
     substitutePhysicalStudiesForVirtualStudies,
 } from 'pages/resultsView/ResultsViewPageHelpers';
 import ClinicalDataCache, {
@@ -128,7 +128,7 @@ import {
     SpecialChartsUniqueKeyEnum,
     StudyWithSamples,
 } from 'pages/studyView/StudyViewUtils';
-import ResultsViewURLWrapper from 'pages/resultsView/ResultsViewURLWrapper';
+//import ResultsViewURLWrapper from 'pages/resultsView/ResultsViewURLWrapper';
 import { calculateQValues } from 'shared/lib/calculation/BenjaminiHochbergFDRCalculator';
 import ComplexKeyMap from '../complexKeyDataStructures/ComplexKeyMap';
 import ComplexKeyGroupsMap from '../complexKeyDataStructures/ComplexKeyGroupsMap';
@@ -197,8 +197,8 @@ import { Group as Group1 } from 'shared/api/session-service/sessionServiceModels
 import {
     ANNOTATED_PROTEIN_IMPACT_FILTER_TYPE,
     createAnnotatedProteinImpactTypeFilter,
-    createNumericalFilter,
-    createCategoricalFilter,
+    // createNumericalFilter,
+    // createCategoricalFilter,
 } from 'shared/lib/MutationUtils';
 import { CanonicalMutationType } from 'cbioportal-frontend-commons';
 import { IVirtualStudyProps } from 'pages/studyView/virtualStudy/VirtualStudy';
@@ -231,7 +231,7 @@ import {
     uniqueGenesInOQLQuery,
 } from '../../../shared/lib/oql/oqlfilter';
 import {
-    convertComparisonGroupClinicalAttribute,
+    //convertComparisonGroupClinicalAttribute,
     makeComparisonGroupClinicalAttributes,
     makeProfiledInClinicalAttributes,
 } from '../../../shared/components/oncoprint/ResultsViewOncoprintUtils';
@@ -259,26 +259,27 @@ export interface AnnotatedMutation extends Mutation {
     MutationTableColumnType,
     getTextForDataField,
 } from 'shared/components/mutationTable/MutationTable';*/
-import getClonalValue from 'shared/components/mutationTable/column/clonal/ClonalColumnFormatter';
-import getCancerCellFractionValue from 'shared/components/mutationTable/column/cancerCellFraction/CancerCellFractionColumnFormatter';
-import getExpectedAltCopiesValue from 'shared/components/mutationTable/column/expectedAltCopies/ExpectedAltCopiesColumnFormatter';
-import TumorAlleleFreqColumnFormatter from 'shared/components/mutationTable/column/TumorAlleleFreqColumnFormatter';
-import NormalAlleleFreqColumnFormatter from 'shared/components/mutationTable/column/NormalAlleleFreqColumnFormatter';
-import ChromosomeColumnFormatter from 'shared/components/mutationTable/column/ChromosomeColumnFormatter';
-import { getASCNMethodValue } from 'shared/components/mutationTable/column/ascnMethod/ASCNMethodColumnFormatter';
-import SampleColumnFormatter from 'shared/components/mutationTable/column/SampleColumnFormatter';
-import GeneColumnFormatter from 'shared/components/mutationTable/column/GeneColumnFormatter';
-import ProteinChangeColumnFormatter from 'shared/components/mutationTable/column/ProteinChangeColumnFormatter';
-import MutationTypeColumnFormatter from 'shared/components/mutationTable/column/MutationTypeColumnFormatter';
-import VariantTypeColumnFormatter from 'shared/components/mutationTable/column/VariantTypeColumnFormatter';
-import HgvsgColumnFormatter from 'shared/components/mutationTable/column/HgvsgColumnFormatter';
-import ClinvarColumnFormatter from 'shared/components/mutationTable/column/ClinvarColumnFormatter';
-import SignalColumnFormatter from 'shared/components/mutationTable/column/SignalColumnFormatter';
+// import getClonalValue from 'shared/components/mutationTable/column/clonal/ClonalColumnFormatter';
+// import getCancerCellFractionValue from 'shared/components/mutationTable/column/cancerCellFraction/CancerCellFractionColumnFormatter';
+// import getExpectedAltCopiesValue from 'shared/components/mutationTable/column/expectedAltCopies/ExpectedAltCopiesColumnFormatter';
+// import TumorAlleleFreqColumnFormatter from 'shared/components/mutationTable/column/TumorAlleleFreqColumnFormatter';
+// import NormalAlleleFreqColumnFormatter from 'shared/components/mutationTable/column/NormalAlleleFreqColumnFormatter';
+// import ChromosomeColumnFormatter from 'shared/components/mutationTable/column/ChromosomeColumnFormatter';
+// import { getASCNMethodValue } from 'shared/components/mutationTable/column/ascnMethod/ASCNMethodColumnFormatter';
+// import SampleColumnFormatter from 'shared/components/mutationTable/column/SampleColumnFormatter';
+// import GeneColumnFormatter from 'shared/components/mutationTable/column/GeneColumnFormatter';
+// import ProteinChangeColumnFormatter from 'shared/components/mutationTable/column/ProteinChangeColumnFormatter';
+// import MutationTypeColumnFormatter from 'shared/components/mutationTable/column/MutationTypeColumnFormatter';
+// import VariantTypeColumnFormatter from 'shared/components/mutationTable/column/VariantTypeColumnFormatter';
+// import HgvsgColumnFormatter from 'shared/components/mutationTable/column/HgvsgColumnFormatter';
+// import ClinvarColumnFormatter from 'shared/components/mutationTable/column/ClinvarColumnFormatter';
+// import SignalColumnFormatter from 'shared/components/mutationTable/column/SignalColumnFormatter';
 import {
     GenomeNexusAPI,
     GenomeNexusAPIInternal,
     VariantAnnotation,
 } from 'genome-nexus-ts-api-client';
+import GroupComparisonURLWrapper from 'pages/groupComparison/GroupComparisonURLWrapper';
 
 export enum OverlapStrategy {
     INCLUDE = 'Include',
@@ -358,7 +359,7 @@ export default abstract class ComparisonStore
 
     constructor(
         protected appStore: AppStore,
-        protected urlWrapper: IComparisonURLWrapper,
+        protected urlWrapper: GroupComparisonURLWrapper,
         protected resultsViewStore?: ResultsViewPageStore,
         public selectedEnrichmentEventTypes?: EnrichmentEventType[] | undefined
     ) {
@@ -427,10 +428,10 @@ export default abstract class ComparisonStore
 
     @computed get hugoGeneSymbols() {
         if (
-            this.urlWrapper1.query.gene_list &&
-            this.urlWrapper1.query.gene_list.length > 0
+            this.urlWrapper.query.gene_list &&
+            this.urlWrapper.query.gene_list.length > 0
         ) {
-            return uniqueGenesInOQLQuery(this.urlWrapper1.query.gene_list);
+            return uniqueGenesInOQLQuery(this.urlWrapper.query.gene_list);
         } else {
             return [];
         }
@@ -469,7 +470,7 @@ export default abstract class ComparisonStore
     }
 
     @computed get queryContainsMutationOql() {
-        return doesQueryContainMutationOQL(this.urlWrapper1.query.gene_list);
+        return doesQueryContainMutationOQL(this.urlWrapper.query.gene_list);
     }
 
     @computed get referenceGenomeBuild() {
@@ -552,7 +553,7 @@ export default abstract class ComparisonStore
 
     @computed
     get cancerStudyIds() {
-        return this.urlWrapper1.query.cancer_study_list.split(',');
+        return this.urlWrapper.query.cancer_study_list.split(',');
     }
 
     @computed get customDataFilterAppliers() {
@@ -672,7 +673,7 @@ export default abstract class ComparisonStore
 
     @computed
     public get hideUnprofiledSamples() {
-        const value = this.urlWrapper1.query.hide_unprofiled_samples;
+        const value = this.urlWrapper.query.hide_unprofiled_samples;
         if (value === 'any' || value === 'totally') {
             return value;
         } else {
@@ -1019,7 +1020,7 @@ export default abstract class ComparisonStore
             this.clinicalAttributeIdToAvailableFrequency,
             this.genomeNexusClient,
             this.genomeNexusInternalClient,
-            () => this.urlWrapper1.query.mutations_transcript_id
+            () => this.urlWrapper.query.mutations_transcript_id
         );
         this.mutationMapperStoreByGeneWithDriverKey[
             this.getGeneWithDriverKey(gene)
@@ -3561,7 +3562,7 @@ export default abstract class ComparisonStore
     });
 
     @computed get oqlText() {
-        return this.urlWrapper1.query.gene_list;
+        return this.urlWrapper.query.gene_list;
     }
 
     readonly entrezGeneIdToGene = remoteData<{ [entrezGeneId: number]: Gene }>({
@@ -3892,14 +3893,14 @@ export default abstract class ComparisonStore
 
     @computed
     get rppaScoreThreshold() {
-        return this.urlWrapper1.query.RPPA_SCORE_THRESHOLD
-            ? parseFloat(this.urlWrapper1.query.RPPA_SCORE_THRESHOLD)
+        return this.urlWrapper.query.RPPA_SCORE_THRESHOLD
+            ? parseFloat(this.urlWrapper.query.RPPA_SCORE_THRESHOLD)
             : DEFAULT_RPPA_THRESHOLD;
     }
 
     @computed get zScoreThreshold() {
-        return this.urlWrapper1.query.Z_SCORE_THRESHOLD
-            ? parseFloat(this.urlWrapper1.query.Z_SCORE_THRESHOLD)
+        return this.urlWrapper.query.Z_SCORE_THRESHOLD
+            ? parseFloat(this.urlWrapper.query.Z_SCORE_THRESHOLD)
             : DEFAULT_Z_SCORE_THRESHOLD;
     }
 
@@ -3909,14 +3910,14 @@ export default abstract class ComparisonStore
 
     @computed get sampleListCategory(): SampleListCategoryType | undefined {
         if (
-            this.urlWrapper1.query.case_set_id &&
+            this.urlWrapper.query.case_set_id &&
             [
                 SampleListCategoryType.w_mut,
                 SampleListCategoryType.w_cna,
                 SampleListCategoryType.w_mut_cna,
-            ].includes(this.urlWrapper1.query.case_set_id as any)
+            ].includes(this.urlWrapper.query.case_set_id as any)
         ) {
-            return this.urlWrapper1.query.case_set_id as SampleListCategoryType;
+            return this.urlWrapper.query.case_set_id as SampleListCategoryType;
         } else {
             return undefined;
         }
@@ -3924,9 +3925,9 @@ export default abstract class ComparisonStore
 
     @computed get samplesSpecificationParams() {
         return parseSamplesSpecifications(
-            this.urlWrapper1.query.case_ids,
-            this.urlWrapper1.query.sample_list_ids,
-            this.urlWrapper1.query.case_set_id,
+            this.urlWrapper.query.case_ids,
+            this.urlWrapper.query.sample_list_ids,
+            this.urlWrapper.query.case_set_id,
             this.cancerStudyIds
         );
     }
@@ -4239,14 +4240,14 @@ export default abstract class ComparisonStore
     @computed
     get selectedMolecularProfileIds() {
         //use profileFilter when both profileFilter and MolecularProfileIds are present in query
-        if (isNaN(parseInt(this.urlWrapper1.query.profileFilter, 10))) {
+        if (isNaN(parseInt(this.urlWrapper.query.profileFilter, 10))) {
             return [];
         }
-        return getMolecularProfiles(this.urlWrapper1.query);
+        return getMolecularProfiles(this.urlWrapper.query);
     }
 
     @computed get profileFilter() {
-        return this.urlWrapper1.query.profileFilter || '0';
+        return this.urlWrapper.query.profileFilter || '0';
     }
 
     readonly selectedMolecularProfiles = remoteData<MolecularProfile[]>({
@@ -4380,7 +4381,7 @@ export default abstract class ComparisonStore
         },
     });
 
-    public urlWrapper1: ResultsViewURLWrapper;
+    public urlWrapper1: IComparisonURLWrapper;
     /*
     @computed.struct get comparisonGroupsReferencedInURL() {
         // The oncoprint can have tracks which indicate comparison group membership per sample.
